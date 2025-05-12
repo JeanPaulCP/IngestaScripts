@@ -1,0 +1,34 @@
+##########################################################################
+                            Dockerfile MYSQL
+##########################################################################
+
+FROM python:3-slim
+
+WORKDIR /programas/ingesta
+
+COPY . .
+
+RUN pip3 install --no-cache-dir \
+    boto3 \
+    mysql-connector-python \
+    pandas
+
+CMD [ "python3", "ingesta.py" ]
+
+##########################################################################
+                            Dockerfile POSTGRESQL
+##########################################################################
+
+FROM python:3-slim
+
+WORKDIR /programas/ingesta
+
+COPY . .
+
+RUN pip3 install --no-cache-dir \
+    boto3 \
+    psycopg2-binary \
+    pandas
+
+CMD [ "python3", "ingesta.py" ]
+

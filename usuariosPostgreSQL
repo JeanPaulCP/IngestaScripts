@@ -1,0 +1,38 @@
+-- Crear la base de datos (NO se permite IF NOT EXISTS en PostgreSQL al crear DB directamente)
+-- Debes ejecutar esta línea desde psql u otro cliente que tenga privilegios para crear DB
+CREATE DATABASE usuariosdb;
+
+-- Luego conectate a la base de datos:
+\c usuariosdb  -- solo si estás en psql CLI, en otros clientes solo seleccionás la DB
+
+-- Crear la tabla 'usuarios'
+CREATE TABLE IF NOT EXISTS usuarios (
+    id_usuario SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    correo VARCHAR(150) UNIQUE NOT NULL,
+    calificacion NUMERIC(3,2) DEFAULT 0.00  -- PostgreSQL usa NUMERIC, no DECIMAL
+);
+
+-- Insertar 20 registros
+INSERT INTO usuarios (nombre, apellido, correo, calificacion) VALUES
+('Juan', 'Pérez', 'juan.perez@example.com', 4.5),
+('María', 'Gómez', 'maria.gomez@example.com', 3.9),
+('Carlos', 'Ramírez', 'carlos.ramirez@example.com', 4.8),
+('Ana', 'López', 'ana.lopez@example.com', 4.2),
+('Luis', 'Torres', 'luis.torres@example.com', 3.5),
+('Elena', 'Suárez', 'elena.suarez@example.com', 4.1),
+('Pedro', 'Sánchez', 'pedro.sanchez@example.com', 4.9),
+('Lucía', 'Fernández', 'lucia.fernandez@example.com', 3.7),
+('Miguel', 'Díaz', 'miguel.diaz@example.com', 4.0),
+('Rosa', 'Castro', 'rosa.castro@example.com', 4.3),
+('José', 'Vargas', 'jose.vargas@example.com', 3.8),
+('Andrea', 'Mendoza', 'andrea.mendoza@example.com', 4.6),
+('Javier', 'Silva', 'javier.silva@example.com', 3.4),
+('Clara', 'Ortega', 'clara.ortega@example.com', 4.7),
+('Diego', 'Ríos', 'diego.rios@example.com', 3.2),
+('Valeria', 'Reyes', 'valeria.reyes@example.com', 4.4),
+('Esteban', 'Morales', 'esteban.morales@example.com', 3.6),
+('Camila', 'Ruiz', 'camila.ruiz@example.com', 4.0),
+('Marcos', 'Navarro', 'marcos.navarro@example.com', 4.8),
+('Sofía', 'Cabrera', 'sofia.cabrera@example.com', 3.9);

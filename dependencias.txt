@@ -1,0 +1,56 @@
+pip install mysql-connector-python boto3 pandas
+pip install psycopg2-binary boto3 pandas
+
+#################################################################################
+                     CONSTRUIR IMAGEN Y EJECUTAR CONTENEDOR
+#################################################################################
+
+docker build -t ingestamysql .
+
+docker run -v /home/ubuntu/.aws/credentials:/root/.aws/credentials ingestamysql
+
+------------------------------------------------------------------------------------
+
+docker build -t ingestapostgresql .
+
+docker run -v /home/ubuntu/.aws/credentials:/root/.aws/credentials ingestapostgresql
+
+------------------------------------------------------------------------------------
+
+
+
+#################################################################################
+                                COMANDOS PARA MYSQL
+#################################################################################
+
+docker volume create mysql_data
+
+docker network create red_bd_mysql
+
+docker run -d --rm --name mysql_c --network red_bd_mysql -e MYSQL_ROOT_PASSWORD=utecmysql -p 8005:3306 -v mysql_data:/var/lib/mysql mysql:8.0
+
+docker run -d --rm --name adminer_mysql --network red_bd_mysql -p 8080:8080 adminer
+
+#################################################################################
+                                COMANDOS PARA POSTGRESQL
+#################################################################################
+
+docker volume create postgres_data
+
+docker network create red_bd_postgres
+
+docker run -d --rm --name postgres_c --network red_bd_postgres -e POSTGRES_PASSWORD=utecpostgresql -p 8006:5432 -v postgres_data:/var/lib/postgresql/data postgres:15
+
+docker run -d --rm --name adminer_postgres --network red_bd_postgres -p 8081:8080 adminer
+
+#################################################################################
+                                COMANDOS PARA POSTGRESQL
+#################################################################################
+
+docker volume create mongo_data
+
+docker network create red_bd_mongo
+
+docker run -d --rm --name mongo_c --network red_bd_mongo -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=utecmongodb -p 8007:27017 -v mongo_data:/data/db mongo:6
+
+docker run -d --rm --name mongo_express_c --network red_bd_mongo -e ME_CONFIG_MONGODB_ADMINUSERNAME=root -e ME_CONFIG_MONGODB_ADMINPASSWORD=utecmongodb -e ME_CONFIG_MONGODB_SERVER=mongo_c -p 8082:8081 mongo-express
