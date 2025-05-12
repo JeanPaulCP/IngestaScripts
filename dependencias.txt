@@ -44,7 +44,7 @@ docker run -d --rm --name postgres_c --network red_bd_postgres -e POSTGRES_PASSW
 docker run -d --rm --name adminer_postgres --network red_bd_postgres -p 8081:8080 adminer
 
 #################################################################################
-                                COMANDOS PARA POSTGRESQL
+                                COMANDOS PARA MONGODB
 #################################################################################
 
 docker volume create mongo_data
@@ -52,5 +52,3 @@ docker volume create mongo_data
 docker network create red_bd_mongo
 
 docker run -d --rm --name mongo_c --network red_bd_mongo -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=utecmongodb -p 8007:27017 -v mongo_data:/data/db mongo:6
-
-docker run -d --rm --name mongo_express_c --network red_bd_mongo -e ME_CONFIG_MONGODB_ADMINUSERNAME=root -e ME_CONFIG_MONGODB_ADMINPASSWORD=utecmongodb -e ME_CONFIG_MONGODB_SERVER=mongo_c -p 8082:8081 mongo-express

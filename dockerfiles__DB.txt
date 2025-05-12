@@ -32,3 +32,18 @@ RUN pip3 install --no-cache-dir \
 
 CMD [ "python3", "ingesta.py" ]
 
+##########################################################################
+                            Dockerfile MONGODB
+##########################################################################
+
+FROM python:3-slim
+
+WORKDIR /programas/ingesta
+
+COPY . .
+
+RUN pip3 install --no-cache-dir \
+    boto3 \
+    pymongo
+
+CMD [ "python3", "ingesta.py" ]
